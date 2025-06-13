@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        .number-input {
+            width: calc(100% - 30px);
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            outline: none;
+        }
+        .number-input:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        .check-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            outline: none;
+        }
+        .check-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        .check-button:active {
+            transform: translateY(0);
+        }
+        .result-output {
+            margin-top: 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #34495e;
+            min-height: 2em;
+        }
+        .result-output.positive {
+            color: #28a745;
+        }
+        .result-output.negative {
+            color: #dc3545;
+        }
+        .result-output.zero {
+            color: #007bff;
+        }
+        .result-output.error {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Number Checker</h1>
+        <p>Enter a number below:</p>
+        <input type="text" id="numberInput" class="number-input" placeholder="e.g., 10, -5, 0">
+        <button id="checkButton" class="check-button">Check Number</button>
+        <div id="resultOutput" class="result-output"></div>
+    </div>
+    <script>
+        const numberInput = document.getElementById('numberInput');
+        const checkButton = document.getElementById('checkButton');
+        const resultOutput = document.getElementById('resultOutput');
+
+        checkButton.addEventListener('click', () => {
+            const inputValue = numberInput.value;
+            const number = parseFloat(inputValue);
+            resultOutput.className = 'result-output';
+            if (isNaN(number)) {
+                resultOutput.textContent = 'Please enter a valid number!';
+                resultOutput.classList.add('error');
+            } else {
+                if (number > 0) {
+                    resultOutput.textContent = 'The number is POSITIVE!';
+                    resultOutput.classList.add('positive');
+                } else if (number < 0) {
+                    resultOutput.textContent = 'The number is NEGATIVE!';
+                    resultOutput.classList.add('negative');
+                } else {
+                    resultOutput.textContent = 'The number is ZERO!';
+                    resultOutput.classList.add('zero');
+                }
+            }
+        });
+
+        numberInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                checkButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
